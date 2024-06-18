@@ -47,4 +47,3 @@ const employeeSchema = new mongoose.Schema(
 );
 
 module.exports = mongoose.model("t_Employee", employeeSchema);
-
