@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { Outlet } from 'react-router-dom'
+import Header from './components/header/Header'
 
 
 function App() {
@@ -6,7 +8,12 @@ function App() {
 
   return (
     <>
-      <h1>hello </h1>
+    <section>
+      <Header/>
+    </section>
+      <section>
+        <Outlet/>
+      </section>
     </>
   )
 }

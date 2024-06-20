@@ -9,6 +9,7 @@ const {
   FORBIDDEN,
 } = require("../utils/statusCodes.js");
 const { hashPassword, compairPassword } = require("../utils/hashPassword.js");
+const generateJwtToken = require("../utils/jwtTokenGenerate.js");
 
 const logInUser = tryCatch(async (req, res) => {
   const { userName, password } = req.body;
@@ -26,16 +27,33 @@ const logInUser = tryCatch(async (req, res) => {
     password,
     isUserPresent.f_pwd
   );
-  console.log(isPasswordCorrect);
   if (isPasswordCorrect) {
-    res.status(200).json({
-      status: "SUCCESS",
-      userData: {
-        f_username: isUserPresent.f_username,
-        f_sno: isUserPresent.f_sno,
-      },
-      message: "log in success",
-    });
+    const accessToken = generateJwtToken(
+      isUserPresent.f_username,
+      process.env.ACCESS_TOKEN_SECRET_KEY,
+      "10s"
+    );
+    const refreshToken = generateJwtToken(
+      isUserPresent.f_username,
+      process.env.REFRESH_TOKEN_SECRET_KEY,
+      "15m"
+    );
+    const options = {
+      httpOnly: true,
+      secure: true,
+    };
+    res
+      .status(200)
+      .cookie("refreshToken", refreshToken, options)
+      .cookie("accessToken", accessToken, options)
+      .json({
+        status: "SUCCESS",
+        userData: {
+          f_username: isUserPresent.f_username,
+          f_sno: isUserPresent.f_sno,
+        },
+        message: "log in success",
+      });
   } else {
     throw new ApiError(BAD_REQUEST, {
       invalidUsername: "Plase enter valid password",
