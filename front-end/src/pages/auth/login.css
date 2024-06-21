@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc(100vh - 130px);
+}
+.form-input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.form-input input {
+  width: 250px;
+  height: 40px;
+}
+
+.form-input label {
+    margin: 5px;
+}
+.form-input button {
+  width: 250px;
+  height: 40px;
+  background-color: rgb(72, 233, 72);
+  margin-top: 10px;
+  color: white;
+}
+.form-input button:hover{
+    background-color: green;
+}
+.error{
+    color: red;
+}

@@ -12,16 +12,23 @@ const { hashPassword, compairPassword } = require("../utils/hashPassword.js");
 const generateJwtToken = require("../utils/jwtTokenGenerate.js");
 
 const logInUser = tryCatch(async (req, res) => {
-  const { userName, password } = req.body;
-  if (!userName)
-    throw new ApiError(BAD_REQUEST, { username: "Plase enter user name" });
+  const { username, password } = req.body;
+  console.log(username,password)
+  if (!username)
+    throw new ApiError(BAD_REQUEST, {
+      error: { username: "Plase enter user name" },
+    });
   if (!password)
-    throw new ApiError(BAD_REQUEST, { password: "Plase enter password" });
+    throw new ApiError(BAD_REQUEST, {
+      error: { password: "Plase enter password" },
+    });
 
-  const isUserPresent = await userSchema.findOne({ f_username: userName });
+  const isUserPresent = await userSchema.findOne({ f_username: username });
   if (!isUserPresent)
     throw new ApiError(BAD_REQUEST, {
-      invalidUsername: "Plase enter valid user name",
+      error: {
+        username: "Plase enter valid user name",
+      },
     });
   const isPasswordCorrect = await compairPassword(
     password,
@@ -31,16 +38,17 @@ const logInUser = tryCatch(async (req, res) => {
     const accessToken = generateJwtToken(
       isUserPresent.f_username,
       process.env.ACCESS_TOKEN_SECRET_KEY,
-      "10s"
+      "10m"
     );
     const refreshToken = generateJwtToken(
       isUserPresent.f_username,
       process.env.REFRESH_TOKEN_SECRET_KEY,
-      "15m"
+      "1d"
     );
     const options = {
       httpOnly: true,
       secure: true,
+      sameSite: 'None'
     };
     res
       .status(200)
@@ -56,7 +64,9 @@ const logInUser = tryCatch(async (req, res) => {
       });
   } else {
     throw new ApiError(BAD_REQUEST, {
-      invalidUsername: "Plase enter valid password",
+      error: {
+        password: "Plase enter valid password",
+      },
     });
   }
 });

@@ -9,7 +9,12 @@ const errorHandler = require("./middleware/errorHandler.middlewere.js");
 
 const app = express();
 
-app.use(cors());
+app.use(cors(
+  {
+    origin: 'http://localhost:5173',
+    credentials: true // Allow credentials (cookies)
+  }
+));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser())

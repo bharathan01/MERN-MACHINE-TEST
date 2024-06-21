@@ -9,13 +9,19 @@ import HomePage from "./pages/home/HomePage.jsx";
 import EditEmployee from "./pages/editsEmployee/EditEmployee.jsx";
 import CreateEmp from "./pages/createEmployee/CreateEmp.jsx";
 import AllEmp from "./pages/viewEmployee/AllEmp.jsx";
+import PrivateRoute from "./utils/PrivateRoute/PrivateRoute.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/" element={<App />}>
+        <Route
+          path="/"
+          element={
+              <App />
+          }
+        >
           <Route index element={<HomePage />}></Route>
           <Route path="/all-Details" element={<AllEmp />}></Route>
           <Route path="/create-employee" element={<CreateEmp />}></Route>
