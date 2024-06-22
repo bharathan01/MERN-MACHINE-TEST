@@ -1,9 +1,16 @@
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 130px);
+}
 .form-container {
+    width: 50%;
     background-color: white;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+    max-width: 800px;
     margin: auto;
 }
 .form-container h2 {
@@ -13,6 +20,8 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
+    flex-direction: column;
+    gap: 10px;
 }
 .form-group label {
     flex: 1;
@@ -59,6 +68,8 @@
 }
 .radio{
     display: flex;
-    justify-content: space-between;
     margin-bottom: 15px;
+}
+.radio-lebel{
+    margin-right:200px ;
 }

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Banner from "../../components/banner/Banners.jsx";
 import "./login.css";
-import { logInUser } from "../../service/auth/index.js";
+import { logInUser } from "../../service/connectServer";
 
 function Login() {
   const [userCredentials, setUserCredentials] = useState({

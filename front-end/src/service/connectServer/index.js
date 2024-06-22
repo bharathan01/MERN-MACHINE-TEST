@@ -8,7 +8,7 @@ export const logInUser = async (userCredentials) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(userCredentials),
-      credentials: 'include'
+      credentials: "include",
     });
 
     const userData = await isUserLogIn.json();
@@ -20,4 +20,18 @@ export const logInUser = async (userCredentials) => {
   } catch (error) {
     return error;
   }
+};
+
+export const createEmp = async (formData) => {
+  try {
+    const createData = await fetch(BASE_URL + "/employee/create-employe", {
+      method: "POST",
+      body: formData,
+      credentials: "include",
+    });
+    const result = await createData.json();
+    return result;   
+  } catch (error) {
+    console.log(error);
+  }   
 };

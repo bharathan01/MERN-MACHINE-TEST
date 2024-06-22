@@ -8,25 +8,21 @@ const {
   FORBIDDEN,
 } = require("../utils/statusCodes.js");
 const validateUser = [
-  body("f_Image").notEmpty().withMessage("Email is required"),
-  body("f_Name").notEmpty().withMessage("Name is required"),
-  body("f_Email")
+  // body("imgUpload").notEmpty().withMessage("Image is required"),
+  body("name").notEmpty().withMessage("Name is required"),
+  body("email")
     .notEmpty()
     .withMessage("Email is required")
     .isEmail()
     .withMessage("Email must be valid"),
-  body("f_Mobile")
-    .notEmpty()
-    .withMessage("Mobile number is required")
-    .matches(/^[0-9]{10}$/)
-    .withMessage("Mobile must be a valid 10-digit number"),
-  body("f_Designation").notEmpty().withMessage("Designation is required"),
-  body("f_gender").notEmpty().withMessage("Gender is required"),
-  body("f_Course").notEmpty().withMessage("Course is required"),
-  body("f_Createdate").notEmpty().withMessage("Createdate is required"),
+  body("mobile").notEmpty().withMessage("Mobile no is required"),
+  body("designation").notEmpty().withMessage("Designation is required"),
+  body("gender").notEmpty().withMessage("Gender is required"),
+  body("course").notEmpty().withMessage("Course is required"),
 ];
 
 const validate = (req, res, next) => {
+  console.log(req.body)
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     throw new ApiError(BAD_REQUEST, { errors: errors.array() });
@@ -34,5 +30,4 @@ const validate = (req, res, next) => {
   next();
 };
 
-
-module.exports = {validate,validateUser};
+module.exports = { validate, validateUser };

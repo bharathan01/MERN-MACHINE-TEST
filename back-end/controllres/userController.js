@@ -10,27 +10,17 @@ const {
 } = require("../utils/statusCodes.js");
 
 const addNewEmployee = tryCatch(async (req, res) => {
-  const {
-    f_Id,
-    file,
-    f_Name,
-    f_Email,
-    f_Mobile,
-    f_Designation,
-    f_gender,
-    f_Course,
-    f_Createdate,
-  } = req.body;
+  const { name,email, mobile, designation, gender, course, } = req.body;
+  const file = req.file;
+  console.log(req.body)
   const newEmployee = new employeeSchema({
-    f_Id,
-    f_Name,
+    f_Name:name,
     f_Image: file.filename,
-    f_Email,
-    f_Mobile,
-    f_Designation,
-    f_gender,
-    f_Course,
-    f_Createdate,
+    f_Email:email,
+    f_Mobile:mobile,
+    f_Designation:designation,
+    f_gender:gender,
+    f_Course:course,
   });
   const creatEmployee = await newEmployee.save();
   if (!creatEmployee)
