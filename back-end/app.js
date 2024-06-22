@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const fileuploader = require("express-fileupload");
+
 
 const authRouter = require("./routes/auth.route.js");
 const employeeRouter = require("./routes/userAction.route.js");
@@ -20,11 +20,11 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(fileuploader());
+
 
 app.use("/api/auth", authRouter);
 app.use("/api/employee", employeeRouter);
-app.use("/img", upload.single('imgUpload'), (req, res) => {
+app.post("/img", upload.single('img'), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: "No file uploaded" });
   }

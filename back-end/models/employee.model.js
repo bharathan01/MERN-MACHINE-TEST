@@ -2,15 +2,9 @@ const mongoose = require("mongoose");
 
 const employeeSchema = new mongoose.Schema(
   {
-    f_id: {
-      type: String,
-      require: true,
-      unique: true,
-    },
     f_Name: {
       type: String,
       require: true,
-      unique: true,
     },
     f_Email: {
       type: String,
@@ -24,23 +18,19 @@ const employeeSchema = new mongoose.Schema(
     },
     f_Designation: {
       type: String,
-      require: true,
-      unique: true,
+      require: true
     },
     f_gender: {
       type: String,
       require: true,
-      unique: true,
     },
     f_Image: {
       type: String,
       require: true,
-      unique: true,
     },
     f_Createdate: {
       type: String,
       require: true,
-      unique: true,
     },
   },
   { timestamps: true }
