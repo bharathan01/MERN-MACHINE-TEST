@@ -5,12 +5,16 @@ const {
   editEmployeeDetails,
   deleteEmployeeDetails,
   addNewEmployee,
+  getEmployeeDateils
 } = require("../controllres/userController.js");
 const {
   validate,
   validateUser,
 } = require("../middleware/validateUserInput.js");
 const upload = require("../middleware/multerUploadImage.js");
+
+router.get('/getempdetails', getEmployeeDateils)
+
 
 router.post(
   "/create-employe",

@@ -35,3 +35,17 @@ export const createEmp = async (formData) => {
     console.log(error);
   }   
 };
+
+export const employeDetails = async() =>{
+   try {
+     const empData = await fetch(BASE_URL + "/employee/getempdetails",{
+        method: "GET",
+        credentials: "include",
+      });
+      const employeDetails = await empData.json()
+      console.log(employeDetails)
+      return employeDetails;
+   } catch (error) {
+    console.log(error)
+   }
+}

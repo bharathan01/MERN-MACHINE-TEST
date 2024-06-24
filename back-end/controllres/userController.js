@@ -10,17 +10,17 @@ const {
 } = require("../utils/statusCodes.js");
 
 const addNewEmployee = tryCatch(async (req, res) => {
-  const { name,email, mobile, designation, gender, course, } = req.body;
+  const { name, email, mobile, designation, gender, course } = req.body;
   const file = req.file;
-  console.log(req.body)
+  console.log(req.body);
   const newEmployee = new employeeSchema({
-    f_Name:name,
+    f_Name: name,
     f_Image: file.filename,
-    f_Email:email,
-    f_Mobile:mobile,
-    f_Designation:designation,
-    f_gender:gender,
-    f_Course:course,
+    f_Email: email,
+    f_Mobile: mobile,
+    f_Designation: designation,
+    f_gender: gender,
+    f_Course: course,
   });
   const creatEmployee = await newEmployee.save();
   if (!creatEmployee)
@@ -90,5 +90,21 @@ const deleteEmployeeDetails = tryCatch(async (req, res) => {
     message: "Employee deleted successfully",
   });
 });
+const getEmployeeDateils = tryCatch(async (req, res) => {
+  const empData = await employeeSchema.find();
+  if(!empData)
+    throw new ApiError(FORBIDDEN,"not getting any data")
 
-module.exports = { deleteEmployeeDetails, editEmployeeDetails, addNewEmployee };
+  res.status(SUCCESS).json({
+    status:"SUCCESS",
+    message:"Data fetch successfully",
+    empData
+  })
+});
+
+module.exports = {
+  deleteEmployeeDetails,
+  editEmployeeDetails,
+  addNewEmployee,
+  getEmployeeDateils,
+};
