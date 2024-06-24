@@ -32,6 +32,10 @@ const employeeSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    f_Course: {
+      type: String,
+      require: true,
+    },
   },
   { timestamps: true }
 );

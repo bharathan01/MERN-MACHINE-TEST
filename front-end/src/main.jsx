@@ -25,7 +25,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route index element={<HomePage />}></Route>
           <Route path="/all-Details" element={<AllEmp />}></Route>
           <Route path="/create-employee" element={<CreateEmp />}></Route>
-          <Route path="/edit-employee" element={<EditEmployee />}></Route>
+          <Route path="/edit-employee/:id" element={<EditEmployee />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

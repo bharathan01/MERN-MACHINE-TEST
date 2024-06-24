@@ -28,6 +28,6 @@ router.post(
   upload.single("imgUpload"),
   editEmployeeDetails
 );
-router.post("/delete-employe", deleteEmployeeDetails);
+router.get("/delete-employe/:id", deleteEmployeeDetails);
 
 module.exports = router;

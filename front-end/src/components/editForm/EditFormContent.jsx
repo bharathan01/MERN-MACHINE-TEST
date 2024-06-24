@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./form.css";
 
-function FormContent({ onSubmit, errors }) {
+function EditFormContent({ onSubmit, errors }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -201,4 +201,4 @@ function FormContent({ onSubmit, errors }) {
   );
 }
 
-export default FormContent;
+export default EditFormContent;

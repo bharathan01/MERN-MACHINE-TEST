@@ -91,22 +91,25 @@ const deleteEmployeeDetails = tryCatch(async (req, res) => {
   });
 });
 const getEmployeeDateils = tryCatch(async (req, res) => {
-  const empData = await employeeSchema.find();
-  if (!empData) throw new ApiError(FORBIDDEN, "not getting any data");
-  const formattedDate = empData.createdAt;
+  const employeeData = await employeeSchema.find();
+  if (!employeeData) throw new ApiError(FORBIDDEN, "not getting any data");
 
-  const date = new Date();
+  const empData = employeeData.map((ele) => {
+    const date = new Date(ele.createdAt);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    const formattedDate = `${day}/${month}/${year}`;
 
-  const day = date.getDate(formattedDate);
-  const month = date.getMonth(formattedDate);
-  const year = date.getFullYear(formattedDate);
-
-  createdDate = `${date}/${month}/${year}`;
-  console.log(createdDate);
+    return {
+      ...ele.toObject(),
+      createdAt: formattedDate,
+    };
+  });
 
   res.status(SUCCESS).json({
     status: "SUCCESS",
-    message: "Data fetch successfully",
+    message: "Data fetched successfully",
     empData,
   });
 });

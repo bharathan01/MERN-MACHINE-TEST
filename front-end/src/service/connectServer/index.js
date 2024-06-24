@@ -30,21 +30,36 @@ export const createEmp = async (formData) => {
       credentials: "include",
     });
     const result = await createData.json();
-    return result;   
+    return result;
   } catch (error) {
     console.log(error);
-  }   
+  }
 };
 
-export const employeDetails = async() =>{
-   try {
-     const empData = await fetch(BASE_URL + "/employee/getempdetails",{
+export const employeDetails = async () => {
+  try {
+    const empData = await fetch(BASE_URL + "/employee/getempdetails", {
+      method: "GET",
+      credentials: "include",
+    });
+    const employeDetails = await empData.json();
+    return employeDetails;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const deleteEmployeeData = async (empId) => {
+  try {
+    const empData = await fetch(
+      `${BASE_URL}/employee/delete-employe/${empId}`,
+      {
         method: "GET",
         credentials: "include",
-      });
-      const employeDetails = await empData.json()
-      return employeDetails;
-   } catch (error) {
-    console.log(error)
-   }
-}
+      }
+    );
+    const employeDetails = await empData.json();
+    return employeDetails;
+  } catch (error) {
+    console.log(error);
+  }
+};
