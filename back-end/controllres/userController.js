@@ -92,14 +92,23 @@ const deleteEmployeeDetails = tryCatch(async (req, res) => {
 });
 const getEmployeeDateils = tryCatch(async (req, res) => {
   const empData = await employeeSchema.find();
-  if(!empData)
-    throw new ApiError(FORBIDDEN,"not getting any data")
+  if (!empData) throw new ApiError(FORBIDDEN, "not getting any data");
+  const formattedDate = empData.createdAt;
+
+  const date = new Date();
+
+  const day = date.getDate(formattedDate);
+  const month = date.getMonth(formattedDate);
+  const year = date.getFullYear(formattedDate);
+
+  createdDate = `${date}/${month}/${year}`;
+  console.log(createdDate);
 
   res.status(SUCCESS).json({
-    status:"SUCCESS",
-    message:"Data fetch successfully",
-    empData
-  })
+    status: "SUCCESS",
+    message: "Data fetch successfully",
+    empData,
+  });
 });
 
 module.exports = {

@@ -43,7 +43,6 @@ export const employeDetails = async() =>{
         credentials: "include",
       });
       const employeDetails = await empData.json()
-      console.log(employeDetails)
       return employeDetails;
    } catch (error) {
     console.log(error)
