@@ -113,10 +113,23 @@ const getEmployeeDateils = tryCatch(async (req, res) => {
     empData,
   });
 });
+const getSingleEmployeeDetails = tryCatch(async (req, res) => {
+  const { id } = req.params;
+  const singleEmpData = await employeeSchema.findOne({ _id: id });
+  if (!singleEmpData)
+    throw new ApiError(NOT_FOUND, "employee details not found");
+
+  res.status(SUCCESS).json({
+    status: "SUCCESS",
+    message: "employee data found",
+    singleEmpData,
+  });
+});
 
 module.exports = {
   deleteEmployeeDetails,
   editEmployeeDetails,
   addNewEmployee,
   getEmployeeDateils,
+  getSingleEmployeeDetails,
 };

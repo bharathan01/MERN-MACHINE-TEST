@@ -63,3 +63,15 @@ export const deleteEmployeeData = async (empId) => {
     console.log(error);
   }
 };
+export const singleEmployeDetails = async (id) => {
+  try {
+    const empData = await fetch(`${BASE_URL }/employee/employee-details/${id}`, {
+      method: "GET",
+      credentials: "include",
+    });
+    const employeDetails = await empData.json();
+    return employeDetails;
+  } catch (error) {
+    console.log(error);
+  }
+};

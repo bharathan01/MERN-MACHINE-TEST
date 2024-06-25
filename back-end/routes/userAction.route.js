@@ -5,7 +5,8 @@ const {
   editEmployeeDetails,
   deleteEmployeeDetails,
   addNewEmployee,
-  getEmployeeDateils
+  getEmployeeDateils,
+  getSingleEmployeeDetails
 } = require("../controllres/userController.js");
 const {
   validate,
@@ -21,11 +22,15 @@ router.post(
   upload.single("imgUpload"),
   addNewEmployee
 );
+router.get(
+  "/employee-details/:id",
+  getSingleEmployeeDetails
+);
 router.post(
   "/edit-employe",
-  validateUser,
-  validate,
-  upload.single("imgUpload"),
+  // validateUser,
+  // validate,
+  // upload.single("imgUpload"),
   editEmployeeDetails
 );
 router.get("/delete-employe/:id", deleteEmployeeDetails);

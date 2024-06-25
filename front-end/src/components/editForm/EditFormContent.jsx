@@ -1,16 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./form.css";
 
-function EditFormContent({ onSubmit, errors }) {
+function EditFormContent({ onSubmit, errors, empData }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     mobile: "",
     designation: "",
     gender: "",
-    course: [],
-    imgUpload: null,
+    course: "",
+    imgUpload: "",
   });
+  const [image, setImage] = useState();
+  useEffect(() => {
+    setFormData({
+      name: empData?.f_Name,
+      email: empData?.f_Email,
+      mobile: empData?.f_Mobile,
+      designation: empData?.f_Designation,
+      gender: empData?.f_gender,
+      course: empData?.f_Course,
+      imgUpload: empData?.f_Image,
+    });
+    setImage(empData?.f_Image);
+  }, [empData]);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -29,6 +42,11 @@ function EditFormContent({ onSubmit, errors }) {
         ...prevState,
         imgUpload: e.target.files[0],
       }));
+      const render = new FileReader();
+      render.onload = () => {
+        setImage(render.result);
+      };
+      render.readAsDataURL(e.target.files[0]);
     } else {
       setFormData((prevState) => ({
         ...prevState,
@@ -36,9 +54,9 @@ function EditFormContent({ onSubmit, errors }) {
       }));
     }
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(formData);
     const Data = new FormData();
     Data.append("name", formData.name);
     Data.append("email", formData.email);
@@ -69,6 +87,7 @@ function EditFormContent({ onSubmit, errors }) {
               name="name"
               placeholder="textbox"
               onChange={handleInputChange}
+              value={formData.name}
             />
             {getError("name") && (
               <span className="error">{getError("name")}</span>
@@ -82,6 +101,7 @@ function EditFormContent({ onSubmit, errors }) {
               name="email"
               placeholder="textbox"
               onChange={handleInputChange}
+              value={formData.email}
             />
             {getError("email") && (
               <span className="error">{getError("email")}</span>
@@ -95,6 +115,7 @@ function EditFormContent({ onSubmit, errors }) {
               name="mobile"
               placeholder="textbox"
               onChange={handleInputChange}
+              value={formData.mobile}
             />
             {getError("mobail") && (
               <span className="error">{getError("mobail")}</span>
@@ -107,6 +128,9 @@ function EditFormContent({ onSubmit, errors }) {
               name="designation"
               onChange={handleInputChange}
             >
+              <option value={formData?.designation}>
+                {formData?.designation}
+              </option>
               <option value="HR">HR</option>
               <option value="Manager">Manager</option>
               <option value="Sales">Sales</option>
@@ -124,6 +148,7 @@ function EditFormContent({ onSubmit, errors }) {
                   name="gender"
                   value="M"
                   onChange={handleInputChange}
+                  checked={formData?.gender === "M"}
                 />{" "}
                 M
               </label>
@@ -133,6 +158,7 @@ function EditFormContent({ onSubmit, errors }) {
                   name="gender"
                   value="F"
                   onChange={handleInputChange}
+                  checked={formData?.gender === "F"}
                 />{" "}
                 F
               </label>
@@ -150,6 +176,7 @@ function EditFormContent({ onSubmit, errors }) {
                   name="course"
                   value="MCA"
                   onChange={handleInputChange}
+                  checked={formData?.course === "MCA"}
                 />{" "}
                 MCA
               </label>
@@ -159,6 +186,7 @@ function EditFormContent({ onSubmit, errors }) {
                   name="course"
                   value="BCA"
                   onChange={handleInputChange}
+                  checked={formData?.course === "BCA"}
                 />{" "}
                 BCA
               </label>
@@ -168,6 +196,7 @@ function EditFormContent({ onSubmit, errors }) {
                   name="course"
                   value="BSC"
                   onChange={handleInputChange}
+                  checked={formData?.course === "BSC"}
                 />{" "}
                 BSC
               </label>
@@ -175,6 +204,9 @@ function EditFormContent({ onSubmit, errors }) {
                 <span className="error">{getError("course")}</span>
               )}
             </div>
+          </div>
+          <div className="form-img">
+            <img src={`../src/images/${image}`} alt="" />
           </div>
           <div className="form-group">
             <label htmlFor="img-upload">Img Upload:</label>
