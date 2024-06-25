@@ -21,13 +21,19 @@ function EditEmployee() {
   }, [id]);
   const handleEditDetails = async (formData) => {
     const responce = await editEmpDetails(formData, id);
-    if (responce.status === "FAILD") setError(responce);
-    if (confirm("employee details updated need to exit") == true)
-      navigator("/all-Details");
+    if (responce.status === "SUCCESS") {
+      if (confirm("employee details updated need to exit") == true)
+        navigate("/all-Details");
+    }
+    setError(responce?.message?.errors)
   };
   return (
     <div>
-      <EditFormContent empData={employeeData} onSubmit={handleEditDetails} />
+      <EditFormContent
+        empData={employeeData}
+        onSubmit={handleEditDetails}
+        errors={error}
+      />
     </div>
   );
 }

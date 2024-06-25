@@ -5,14 +5,14 @@ import { createEmp } from "../../service/connectServer/index.js";
 import { useNavigate } from "react-router-dom";
 
 function CreateEmp() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
   const handleFormSubmition = async (formData) => {
     const result = await createEmp(formData);
     if (result?.status === "FAILD") setError(result?.message?.errors);
-    if(result?.status ==="SUCCESS") {
-      alert('employee created successfully')
-      navigate('/all-Details')
+    if (result?.status === "SUCCESS") {
+      alert("employee created successfully");
+      navigate("/all-Details");
     }
   };
   return (

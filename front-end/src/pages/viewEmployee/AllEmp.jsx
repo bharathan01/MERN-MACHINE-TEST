@@ -8,16 +8,18 @@ import {
 } from "../../service/connectServer";
 function AllEmp() {
   const [empDetils, setEmpdetails] = useState(null);
+  const [isDeteted, setDeleted] = useState(false);
   useEffect(() => {
     const fetchEmployeeDetails = async () => {
       const response = await employeDetails();
       setEmpdetails(response.empData);
     };
     fetchEmployeeDetails();
-  }, [deleteEmployee]);
-  async function deleteEmployee(empId){
+  }, [isDeteted]);
+  async function deleteEmployee(empId) {
     const responce = await deleteEmployeeData(empId);
-  };
+    if (responce.status === "SUCCESS") setDeleted(true);
+  }
   return (
     <div>
       <Banner content={"Employee List"} />

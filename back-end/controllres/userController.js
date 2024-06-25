@@ -36,6 +36,7 @@ const addNewEmployee = tryCatch(async (req, res) => {
 const editEmployeeDetails = tryCatch(async (req, res) => {
   const { id } = req.params;
   const { name, email, mobile, designation, gender, course } = req.body;
+  console.log(req.body)
   const updatedData = {
     f_Name : name,
     f_Email:email,

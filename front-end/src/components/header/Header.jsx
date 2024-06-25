@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./header.css";
-import { Link } from "react-router-dom";
-
-
-
+import { Link, useNavigate } from "react-router-dom";
 
 function Header() {
+  const [username, setUsername] = useState("");
+  const navigate = useNavigate()
+  useEffect(() => {
+    const username = localStorage.getItem("username");
+    if (username) setUsername(username);
+  }, []);
+  const logOut = () => {
+    localStorage.removeItem('username')
+    navigate("/login")
+  };
   return (
     <div className="main">
       <div className="logo">
@@ -24,8 +31,8 @@ function Header() {
         </div>
         <div className="right-side">
           <ul className="nav-link">
-            <li>User name</li>
-            <li>Log out</li>
+            <li>{username}</li>
+            <li onClick={logOut}>Log out</li>
           </ul>
         </div>
       </div>

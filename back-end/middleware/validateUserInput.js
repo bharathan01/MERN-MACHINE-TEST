@@ -8,7 +8,6 @@ const {
   FORBIDDEN,
 } = require("../utils/statusCodes.js");
 const validateUser = [
-  // body("imgUpload").notEmpty().withMessage("Image is required"),
   body("name").notEmpty().withMessage("Name is required"),
   body("email")
     .notEmpty()
@@ -22,7 +21,6 @@ const validateUser = [
 ];
 
 const validate = (req, res, next) => {
-  console.log(req.body)
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     throw new ApiError(BAD_REQUEST, { errors: errors.array() });

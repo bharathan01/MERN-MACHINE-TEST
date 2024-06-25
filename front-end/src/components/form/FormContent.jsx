@@ -96,8 +96,8 @@ function FormContent({ onSubmit, errors }) {
               placeholder="textbox"
               onChange={handleInputChange}
             />
-            {getError("mobail") && (
-              <span className="error">{getError("mobail")}</span>
+            {getError("mobile") && (
+              <span className="error">{getError("mobile")}</span>
             )}
           </div>
           <div className="form-group">

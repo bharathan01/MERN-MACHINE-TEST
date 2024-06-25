@@ -20,6 +20,8 @@ router.get('/getempdetails', getEmployeeDateils)
 router.post(
   "/create-employe",
   upload.single("imgUpload"),
+  validateUser,
+  validate,
   addNewEmployee
 );
 router.get(
@@ -28,9 +30,9 @@ router.get(
 );
 router.post(
   "/edit-employe/:id",
-  // validateUser,
-  // validate,
   upload.single("imgUpload"),
+  validateUser,
+  validate,
   editEmployeeDetails
 );
 router.get("/delete-employe/:id", deleteEmployeeDetails);
