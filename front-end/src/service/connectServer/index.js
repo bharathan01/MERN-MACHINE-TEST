@@ -65,8 +65,21 @@ export const deleteEmployeeData = async (empId) => {
 };
 export const singleEmployeDetails = async (id) => {
   try {
-    const empData = await fetch(`${BASE_URL }/employee/employee-details/${id}`, {
+    const empData = await fetch(`${BASE_URL}/employee/employee-details/${id}`, {
       method: "GET",
+      credentials: "include",
+    });
+    const employeDetails = await empData.json();
+    return employeDetails;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const editEmpDetails = async (empDetails, id) => {
+  try {
+    const empData = await fetch(`${BASE_URL}/employee/edit-employe/${id}`, {
+      method: "POST",
+      body: empDetails,
       credentials: "include",
     });
     const employeDetails = await empData.json();

@@ -12,7 +12,6 @@ const {
 const addNewEmployee = tryCatch(async (req, res) => {
   const { name, email, mobile, designation, gender, course } = req.body;
   const file = req.file;
-  console.log(req.body);
   const newEmployee = new employeeSchema({
     f_Name: name,
     f_Image: file.filename,
@@ -35,25 +34,15 @@ const addNewEmployee = tryCatch(async (req, res) => {
   });
 });
 const editEmployeeDetails = tryCatch(async (req, res) => {
-  const { id } = req.params; // Assuming the employee ID is passed as a URL parameter
-  const {
-    f_Name,
-    f_Email,
-    f_Mobile,
-    f_Designation,
-    f_gender,
-    f_Course,
-    f_Createdate,
-  } = req.body;
-
+  const { id } = req.params;
+  const { name, email, mobile, designation, gender, course } = req.body;
   const updatedData = {
-    f_Name,
-    f_Email,
-    f_Mobile,
-    f_Designation,
-    f_gender,
-    f_Course,
-    f_Createdate,
+    f_Name : name,
+    f_Email:email,
+    f_Mobile:mobile,
+    f_Designation:designation,
+    f_gender:gender,
+    f_Course:course,
   };
 
   // Include the image file if it's present in the request
@@ -62,7 +51,7 @@ const editEmployeeDetails = tryCatch(async (req, res) => {
   }
 
   const updatedEmployee = await employeeSchema.findByIdAndUpdate(
-    id,
+    { _id: id },
     updatedData,
     { new: true }
   );

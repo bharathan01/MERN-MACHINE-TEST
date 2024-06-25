@@ -27,10 +27,10 @@ router.get(
   getSingleEmployeeDetails
 );
 router.post(
-  "/edit-employe",
+  "/edit-employe/:id",
   // validateUser,
   // validate,
-  // upload.single("imgUpload"),
+  upload.single("imgUpload"),
   editEmployeeDetails
 );
 router.get("/delete-employe/:id", deleteEmployeeDetails);

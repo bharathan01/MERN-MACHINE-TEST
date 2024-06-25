@@ -22,7 +22,7 @@ function EditFormContent({ onSubmit, errors, empData }) {
       course: empData?.f_Course,
       imgUpload: empData?.f_Image,
     });
-    setImage(empData?.f_Image);
+    setImage(`../src/images/${empData?.f_Image}`);
   }, [empData]);
 
   const handleInputChange = (e) => {
@@ -47,6 +47,7 @@ function EditFormContent({ onSubmit, errors, empData }) {
         setImage(render.result);
       };
       render.readAsDataURL(e.target.files[0]);
+      console.log(image);
     } else {
       setFormData((prevState) => ({
         ...prevState,
@@ -56,7 +57,6 @@ function EditFormContent({ onSubmit, errors, empData }) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     const Data = new FormData();
     Data.append("name", formData.name);
     Data.append("email", formData.email);
@@ -205,9 +205,7 @@ function EditFormContent({ onSubmit, errors, empData }) {
               )}
             </div>
           </div>
-          <div className="form-img">
-            <img src={`../src/images/${image}`} alt="" />
-          </div>
+          <div className="form-img">{image && <img src={image} alt="" />}</div>
           <div className="form-group">
             <label htmlFor="img-upload">Img Upload:</label>
             <input
