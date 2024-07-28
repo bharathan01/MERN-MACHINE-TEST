@@ -1,6 +1,7 @@
 const tryCatch = require("../utils/tryCatch.js");
 const userSchema = require("../models/user.model.js");
 const ApiError = require("../utils/customError.js");
+// importing the basic HTTP status codes,
 const {
   BAD_REQUEST,
   SUCCESS,
@@ -11,10 +12,11 @@ const {
 const { hashPassword, compairPassword } = require("../utils/hashPassword.js");
 const generateJwtToken = require("../utils/jwtTokenGenerate.js");
 
+// starting of log in admin logic
 const logInUser = tryCatch(async (req, res) => {
   const { username, password } = req.body;
-  console.log(username,password)
   if (!username)
+    // created a apierror handle class to custom error handles
     throw new ApiError(BAD_REQUEST, {
       error: { username: "Plase enter user name" },
     });
@@ -22,7 +24,7 @@ const logInUser = tryCatch(async (req, res) => {
     throw new ApiError(BAD_REQUEST, {
       error: { password: "Plase enter password" },
     });
-
+  // checks the username
   const isUserPresent = await userSchema.findOne({ f_username: username });
   if (!isUserPresent)
     throw new ApiError(BAD_REQUEST, {
@@ -30,10 +32,14 @@ const logInUser = tryCatch(async (req, res) => {
         username: "Plase enter valid user name",
       },
     });
+
+  // using bycrypt comparing passowrd ensure the password is currect
   const isPasswordCorrect = await compairPassword(
     password,
     isUserPresent.f_pwd
   );
+
+  // password match then create a token and append to cookies
   if (isPasswordCorrect) {
     const accessToken = generateJwtToken(
       isUserPresent.f_username,
@@ -70,21 +76,22 @@ const logInUser = tryCatch(async (req, res) => {
     });
   }
 });
-
+// admin register logic
 const registerUser = tryCatch(async (req, res) => {
   const { userName, password } = req.body;
   if (!userName) throw new ApiError(BAD_REQUEST, "User name is required !");
   if (!password) throw new ApiError(BAD_REQUEST, "password is required !");
   const user = await userSchema.findOne({ f_username: userName });
   if (user) throw new ApiError(BAD_REQUEST, "User name is already present !");
-
+ // hashing the password for privacy
   const hashedPassword = await hashPassword(password);
-
+  
+  //create new document on db
   const userData = new userSchema({
     f_username: userName,
     f_pwd: hashedPassword,
   });
-
+  
   const responce = await userData.save();
   if (!responce)
     throw new ApiError(INTERNAL_SERVER_ERROR, "can't create a user!");
